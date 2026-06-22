@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ninja Guides">
+  <meta name="theme-color" content="#1A1A1A">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjM4IiBmaWxsPSIjMUExQTFBIi8+PHRleHQgeD0iOTYiIHk9IjEyOCIgZm9udC1zaXplPSIxMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcHBsZSBDb2xvciBFbW9qaSxTZWdvZSBVSSBFbW9qaSxzYW5zLXNlcmlmIj7wn6W3PC90ZXh0Pjwvc3ZnPg==">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzFBMUExQSIvPjx0ZXh0IHg9IjI1NiIgeT0iMzQwIiBmb250LXNpemU9IjMwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFwcGxlIENvbG9yIEVtb2ppLFNlZ29lIFVJIEVtb2ppLHNhbnMtc2VyaWYiPvCfpbc8L3RleHQ+PC9zdmc+">
+  <title>Ninja Guides by Duffers</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:100%;}
+    html,body,#root{height:100%;background:#1A1A1A;}
+    body{font-family:-apple-system,'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;color:#F0F0F0;overscroll-behavior-y:contain;}
+    #root{min-height:100vh;}
+    input:focus{outline:none}
+    ::-webkit-scrollbar{width:3px;}
+    ::-webkit-scrollbar-thumb{background:#555;border-radius:2px;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+    .fi{animation:fadeIn 0.3s ease}
+    button,a{cursor:pointer}
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script type="text/babel">
+var useState  = React.useState;
+var useEffect = React.useEffect;
+
+var DARK = {
+  app:"#0A0A0A", hdr:"linear-gradient(135deg,#1A1A1A,#0A0A0A)", hdrBor:"#2A2A2A",
+  txt:"#F0F0F0", sub:"#666", bod:"#BBB",
+  card:"#141414", cardBor:"#252525", cardHov:"#1C1C1C",
+  btn:"#222", btnBor:"#333",
+  navBg:"#111", navBor:"#1E1E1E", navTxt:"#555", navAct:"#FF6B00",
+  tag:"#1E1E1E", tagBor:"#2A2A2A", tagTxt:"#888",
+};
+var LIGHT = {
+  app:"#F5F0EB", hdr:"linear-gradient(135deg,#FFF3E8,#F0EBE3)", hdrBor:"#E0D5C8",
+  txt:"#1A1A1A", sub:"#999", bod:"#555",
+  card:"#FFF", cardBor:"#E8DDD0", cardHov:"#FDF9F5",
+  btn:"#F0EBE3", btnBor:"#D5C9BA",
+  navBg:"#FFF3E8", navBor:"#E0D5C8", navTxt:"#AAA", navAct:"#FF6B00",
+  tag:"#F5EFE8", tagBor:"#E0D5C8", tagTxt:"#999",
+};
+
+var APPS = [
+  {
+    id:"woodfire",
+    emoji:"🔥",
+    name:"Ninja Woodfire",
+    subtitle:"Outdoor Grill Cook Guide",
+    desc:"Cook times, temperatures and tips for every ingredient on your Ninja Woodfire Outdoor Grill. Covers all modes including smoke, grill, air crisp and roast.",
+    tags:["Grill","Smoke","Air Crisp","Roast","Bake"],
+    url:"https://dirtyduffers.github.io/ninja-woodfire-app/",
+    accent:"#FF5500",
+    accentDim:"rgba(255,85,0,0.12)",
+    bg_dark:"#120500",
+    bg_light:"#FFF8F4",
+  },
+  {
+    id:"airfryer",
+    emoji:"🍟",
+    name:"Ninja Air Fryer",
+    subtitle:"Air Fryer Cook Guide",
+    desc:"Tailored cook times and settings for 15 Ninja Air Fryer models. Covers vegetables, meat, fish, frozen food and baked goods with portion scaling.",
+    tags:["Air Fry","Max Crisp","Dehydrate","Reheat","Bake"],
+    url:"https://dirtyduffers.github.io/ninja-airfry-app/",
+    accent:"#0099FF",
+    accentDim:"rgba(0,153,255,0.12)",
+    bg_dark:"#000D1A",
+    bg_light:"#EEF4FA",
+  },
+  {
+    id:"bossblend",
+    emoji:"🥤",
+    name:"Ninja Blend Boss",
+    subtitle:"Blender Recipe Guide",
+    desc:"Recipes, programmes and tips for your Ninja blender. Smoothies, soups, sauces and more — with ingredient quantities and blending guidance.",
+    tags:["Smoothies","Soups","Sauces","Nut Butters","Ice Cream"],
+    url:"https://dirtyduffers.github.io/ninja-bossblend-app/",
+    accent:"#7744CC",
+    accentDim:"rgba(119,68,204,0.12)",
+    bg_dark:"#0A0A1A",
+    bg_light:"#F0EEF8",
+  },
+];
+
+function App(){
+  var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var s1=useState(prefersDark?"dark":"light"); var mode=s1[0]; var setMode=s1[1];
+  var isDark = mode==="dark";
+  var t = isDark ? DARK : LIGHT;
+
+  useEffect(function(){
+    document.querySelector("meta[name=theme-color]").setAttribute("content", isDark?"#1A1A1A":"#FFF3E8");
+  },[mode]);
+
+  return(
+    <div style={{background:t.app,minHeight:"100vh",display:"flex",flexDirection:"column",color:t.txt,transition:"background 0.25s"}}>
+
+      {/* HEADER */}
+      <div style={{background:t.hdr,borderBottom:"1px solid "+t.hdrBor,position:"sticky",top:0,zIndex:30,padding:"14px 16px 12px"}}>
+        <div style={{maxWidth:900,margin:"0 auto",width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            <span style={{fontSize:26,lineHeight:1}}>🥷</span>
+            <div>
+              <div style={{fontSize:15,fontWeight:800,color:t.txt,letterSpacing:"-0.3px"}}>Ninja Guides</div>
+              <div style={{fontSize:10,color:t.sub,letterSpacing:"0.5px"}}>by Duffers</div>
+            </div>
+          </div>
+          <button onClick={function(){setMode(isDark?"light":"dark");}} style={{background:t.btn,border:"1px solid "+t.btnBor,borderRadius:20,padding:"6px 12px",fontSize:12,color:t.sub,fontWeight:600}}>
+            {isDark?"☀️ Light":"🌙 Dark"}
+          </button>
+        </div>
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div style={{flex:1,width:"100%",maxWidth:900,margin:"0 auto",padding:"20px 14px",paddingBottom:24}} className="fi">
+
+        {/* Intro */}
+        <div style={{textAlign:"center",marginBottom:28,paddingTop:8}}>
+          <div style={{fontSize:44,marginBottom:10,lineHeight:1}}>🥷</div>
+          <div style={{fontSize:20,fontWeight:800,color:t.txt,marginBottom:6}}>All three Ninja guides, one place</div>
+          <div style={{fontSize:13,color:t.bod,lineHeight:1.6,maxWidth:420,margin:"0 auto"}}>Free, ad-free cook guides for your Ninja appliances. Open the one you need and get cooking.</div>
+        </div>
+
+        {/* App Cards */}
+        <div style={{display:"flex",flexDirection:"column",gap:14}}>
+          {APPS.map(function(app){
+            return(
+              <a key={app.id} href={app.url} target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",display:"block"}}>
+                <div style={{background:isDark?app.bg_dark:app.bg_light,border:"1px solid "+app.accent+"44",borderRadius:18,padding:"18px 16px",transition:"transform 0.15s,box-shadow 0.15s",boxShadow:isDark?"0 2px 12px rgba(0,0,0,0.4)":"0 2px 12px rgba(0,0,0,0.08)"}}>
+
+                  {/* Card header */}
+                  <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:10}}>
+                    <div style={{width:50,height:50,borderRadius:14,background:app.accentDim,display:"flex",alignItems:"center",justifyContent:"center",fontSize:26,flexShrink:0}}>
+                      {app.emoji}
+                    </div>
+                    <div style={{flex:1,minWidth:0}}>
+                      <div style={{fontSize:16,fontWeight:800,color:t.txt,letterSpacing:"-0.2px"}}>{app.name}</div>
+                      <div style={{fontSize:11,color:app.accent,fontWeight:700,letterSpacing:"0.3px",textTransform:"uppercase",marginTop:1}}>{app.subtitle}</div>
+                    </div>
+                    <div style={{fontSize:18,color:app.accent,flexShrink:0}}>&#8599;</div>
+                  </div>
+
+                  {/* Description */}
+                  <div style={{fontSize:13,color:t.bod,lineHeight:1.6,marginBottom:12}}>{app.desc}</div>
+
+                  {/* Tags */}
+                  <div style={{display:"flex",flexWrap:"wrap",gap:5,marginBottom:12}}>
+                    {app.tags.map(function(tag){return(
+                      <span key={tag} style={{background:app.accentDim,color:app.accent,border:"1px solid "+app.accent+"33",borderRadius:20,padding:"3px 10px",fontSize:11,fontWeight:600}}>
+                        {tag}
+                      </span>
+                    );})}
+                  </div>
+
+                  {/* Open button */}
+                  <div style={{background:app.accent,borderRadius:10,padding:"10px 16px",textAlign:"center",color:"#FFF",fontSize:13,fontWeight:700,letterSpacing:"0.2px"}}>
+                    Open {app.name} &#8599;
+                  </div>
+
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Footer */}
+        <div style={{textAlign:"center",marginTop:28,paddingTop:20,borderTop:"1px solid "+t.hdrBor}}>
+          <div style={{fontSize:22,marginBottom:6}}>🥷</div>
+          <div style={{fontSize:12,color:t.sub,marginBottom:3}}>Made by <strong style={{color:t.bod}}>Duffers</strong></div>
+          <div style={{fontSize:10,color:t.tag,lineHeight:1.8}}>
+            Free · Ad-free · No account needed<br/>
+            dirtyduffers.github.io
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+</script>
+<script>
+(function(){
+  var href512 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzFBMUExQSIvPjx0ZXh0IHg9IjI1NiIgeT0iMzQwIiBmb250LXNpemU9IjMwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFwcGxlIENvbG9yIEVtb2ppLFNlZ29lIFVJIEVtb2ppLHNhbnMtc2VyaWYiPvCfpbc8L3RleHQ+PC9zdmc+";
+  var href192 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjM4IiBmaWxsPSIjMUExQTFBIi8+PHRleHQgeD0iOTYiIHk9IjEyOCIgZm9udC1zaXplPSIxMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcHBsZSBDb2xvciBFbW9qaSxTZWdvZSBVSSBFbW9qaSxzYW5zLXNlcmlmIj7wn6W3PC90ZXh0Pjwvc3ZnPg==";
+  var m = {name:"Ninja Guides",short_name:"Ninja Guides",start_url:"/",display:"standalone",
+    background_color:"#1A1A1A",theme_color:"#1A1A1A",orientation:"portrait",
+    icons:[
+      {src:href192,sizes:"192x192",type:"image/svg+xml",purpose:"any maskable"},
+      {src:href512,sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}
+    ]};
+  var b = new Blob([JSON.stringify(m)],{type:"application/manifest+json"});
+  var l = document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(b);document.head.appendChild(l);
+})();
+</script>
+</body>
+</html>
