@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Ninja Guides">
   <meta name="theme-color" content="#1A1A1A">
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjM4IiBmaWxsPSIjMUExQTFBIi8+PHRleHQgeD0iOTYiIHk9IjEyOCIgZm9udC1zaXplPSIxMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcHBsZSBDb2xvciBFbW9qaSxTZWdvZSBVSSBFbW9qaSxzYW5zLXNlcmlmIj7wn6W3PC90ZXh0Pjwvc3ZnPg==">
@@ -12,9 +12,9 @@
   <title>Ninja Guides by Duffers</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{-webkit-text-size-adjust:100%;}
+    html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;overscroll-behavior-y:none;}
     html,body,#root{height:100%;background:#1A1A1A;}
-    body{font-family:-apple-system,'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;color:#F0F0F0;overscroll-behavior-y:contain;}
+    body{font-family:-apple-system,'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;color:#F0F0F0;overscroll-behavior-y:none;}
     #root{min-height:100vh;}
     input:focus{outline:none}
     ::-webkit-scrollbar{width:3px;}
@@ -120,7 +120,7 @@ function App(){
     <div style={{background:t.app,minHeight:"100vh",display:"flex",flexDirection:"column",color:t.txt,transition:"background 0.25s"}}>
 
       {/* HEADER */}
-      <div style={{background:t.hdr,borderBottom:"1px solid "+t.hdrBor,position:"sticky",top:0,zIndex:30,padding:"14px 16px 12px"}}>
+      <div style={{background:t.hdr,borderBottom:"1px solid "+t.hdrBor,position:"sticky",top:0,zIndex:100,paddingTop:"calc(14px + env(safe-area-inset-top, 0px))",paddingLeft:"max(16px,env(safe-area-inset-left,0px))",paddingRight:"max(16px,env(safe-area-inset-right,0px))",paddingBottom:"12px",WebkitTransform:"translateZ(0)",transform:"translateZ(0)",isolation:"isolate",boxShadow:"0 1px 8px rgba(0,0,0,0.18)"}}>
         <div style={{maxWidth:900,margin:"0 auto",width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
             <span style={{fontSize:26,lineHeight:1}}>🥷</span>
